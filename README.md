@@ -1,74 +1,83 @@
 # AI Research Agent
 
-An AI-powered research assistant built with Python and LangChain.
+An AI research agent built using Python, LangChain, OpenAI, and external tools.
 
 ## Features
 
-- Research tool integration
-- Agent-based architecture
-- Input validation and guardrails
-- Error handling
-- Evaluation of research results
-- Logging
-- Environment variable configuration
-- Offline testing mode
+- Researches user questions using the Wikipedia API
+- Uses a calculator tool for arithmetic operations
+- Supports addition, subtraction, multiplication, and division
+- Selects a tool based on the user's question
+- Input validation and error handling
+- LLM-based response generation
+- Fallback mode when the LLM is unavailable
+- Result evaluation
 
-## Project Structure
+## Architecture
 
-ai-research-agent/
-│
-├── agents/
-│   └── research_agent.py
-│
-├── tools/
-│   └── research_tool.py
-│
-├── main.py
-├── requirements.txt
-├── .gitignore
-└── .env
+User Question
+      |
+      v
+Research Agent
+      |
+      +------ Calculator Tool
+      |
+      +------ Research Tool ------> Wikipedia API
+                     |
+                     v
+                    LLM
+                     |
+                     v
+               Final Response
 
 ## Technologies
 
 - Python
 - LangChain
-- OpenAI API
-- Python-dotenv
+- OpenAI
+- Requests
+- Wikipedia API
+- python-dotenv
 
-## How to Run
+## Project Structure
 
-Create a virtual environment:
+ai-research-agent/
+│
+├── main.py
+├── agents/
+│   └── research_agent.py
+├── tools/
+│   ├── research_tool.py
+│   └── calculator_tool.py
+├── .env
+├── .gitignore
+└── requirements.txt
 
-```bash
-python -m venv venv
+## Example
 
-Activate the virtual environment:
+Input:
 
-### Windows PowerShell
+multiply 10 and 5
 
-bash
-.\venv\Scripts\Activate.ps1
+Output:
 
+50
 
-Install the required packages:
+## Error Handling
 
-bash
-pip install -r requirements.txt
+The agent handles:
 
-
-Add your API key to the `.env` file.
-
-Then run the project:
-
-bash
-python main.py
-```
+- Empty questions
+- Missing numbers
+- Invalid calculation requests
+- Division by zero
+- Research API failures
+- LLM/API failures
 
 ## Future Improvements
 
-- Real web search integration
-- LLM-powered research summaries
-- Multiple research tools
-- Source verification
-- Better evaluation metrics
-- Human-in-the-loop approval
+- Add more tools
+- Use an LLM for dynamic tool selection
+- Add conversation memory
+- Add LangGraph workflow
+- Add more advanced evaluation
